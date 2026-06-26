@@ -66,14 +66,12 @@ provider from your browser.
 
 ## 📸 Screenshots
 
-> the rows below.
-
 | View             | Preview |
 | ---------------- | ------- |
-| Landing          | <!-- ![Landing](docs/screenshots/landing.png) --> |
-| Dashboard        | <!-- ![Dashboard](docs/screenshots/dashboard.png) --> |
-| Template gallery | <!-- ![Templates](docs/screenshots/templates.png) --> |
-| Import           | <!-- ![Import](docs/screenshots/import.png) --> |
+| Landing          | ![Landing](docs/screenshots/landing.png) |
+| Dashboard        | ![Dashboard](docs/screenshots/dashboard.png) |
+| Template gallery | ![Templates](docs/screenshots/templates.png) |
+| Import           | ![Import](docs/screenshots/import.png) |
 
 ---
 
