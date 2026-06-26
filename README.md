@@ -66,14 +66,12 @@ provider from your browser.
 
 ## 📸 Screenshots
 
-> Screenshots are not committed yet. Drop images into `docs/screenshots/` and uncomment
 > the rows below.
 
 | View             | Preview |
 | ---------------- | ------- |
 | Landing          | <!-- ![Landing](docs/screenshots/landing.png) --> |
 | Dashboard        | <!-- ![Dashboard](docs/screenshots/dashboard.png) --> |
-| Builder          | <!-- ![Builder](docs/screenshots/builder.png) --> |
 | Template gallery | <!-- ![Templates](docs/screenshots/templates.png) --> |
 | Import           | <!-- ![Import](docs/screenshots/import.png) --> |
 
