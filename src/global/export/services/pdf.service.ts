@@ -196,6 +196,21 @@ export async function exportElementToPdf(
       }
     }
 
+    // Footer: page numbers only (no header, no other footer text). Centered in
+    // the bottom margin. Skipped for single-page resumes.
+    const totalPages = doc.getNumberOfPages();
+    if (totalPages > 1) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(120, 120, 120);
+      for (let p = 1; p <= totalPages; p++) {
+        doc.setPage(p);
+        doc.text(`${p} / ${totalPages}`, page.width / 2, page.height - 4, {
+          align: "center",
+        });
+      }
+    }
+
     doc.save(`${opts.fileName}.pdf`);
   } catch (error) {
     // Rethrow with a clear, caller-friendly message.

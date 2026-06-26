@@ -245,16 +245,11 @@ body {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  /* The page margin (set on @page) provides the top/bottom breathing room on
-     every page - including page 2+ at interior breaks. Drop the resume's own
-     top/bottom padding in print so page 1 isn't double-spaced; horizontal
-     padding stays, keeping full-bleed sidebars flush to the left/right edges. */
-  .resume-print-root > * {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
   @page {
-    /* Vertical margin only; horizontal stays 0 so sidebars can bleed. */
-    margin: 10mm 0;
+    /* Zero page margin so the browser never draws its own header/footer
+       (date, title, URL, page number). The resume supplies its own padding.
+       For a footer with page numbers and proper per-page margins, use the
+       "Download PDF" option, which renders those itself. */
+    margin: 0;
   }
 }

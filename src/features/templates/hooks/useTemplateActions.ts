@@ -23,7 +23,7 @@ export function useTemplateActions() {
           settings: applyTemplate(resume.settings, templateId),
         };
         await resumeRepository.save(updated);
-        router.push(`/builder/${updated.id}`);
+        router.push(`/builder?id=${updated.id}`);
       } catch {
         toast.error("Could not create the resume. Please try again.");
         setPendingId(null);

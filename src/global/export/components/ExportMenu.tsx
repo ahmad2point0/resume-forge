@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Download, FileDown, FileImage, FileJson } from "lucide-react";
+import { Download, FileDown, FileJson, Printer } from "lucide-react";
 
 import {
   Button,
@@ -31,11 +31,13 @@ export interface ExportMenuProps {
 }
 
 /**
- * Export entry point. The primary "Download PDF" uses the browser's print
- * pipeline, which renders the resume DOM as true vector text - pixel-identical
- * to the preview, selectable, ATS-parseable, and a tiny file. The image-based
- * download (html2canvas) is a fallback for when the print dialog is unwanted;
- * it rasterizes, so spacing can drift slightly from the preview.
+ * Export entry point.
+ *
+ * - "Download PDF" renders the file ourselves: proper per-page margins and a
+ *   page-number-only footer (no browser header/footer), small file size. This
+ *   is the default because it is fully under our control.
+ * - "Print / Save as PDF" uses the browser print pipeline for the crispest
+ *   vector text; its header/footer is governed by the print dialog.
  */
 export function ExportMenu({
   targetRef,
@@ -47,7 +49,7 @@ export function ExportMenu({
   const { print } = usePrint();
   const { exportPdf, exporting } = usePdfExport();
 
-  const handleDownloadImage = () => {
+  const handleDownloadPdf = () => {
     const element = targetRef.current;
     if (!element) {
       toast.error("Nothing to export yet");
@@ -67,32 +69,31 @@ export function ExportMenu({
       <DropdownMenuContent align="end" className="w-64">
         <DropdownMenuItem
           className="flex-col items-start gap-0.5"
-          onSelect={() => print()}
-        >
-          <span className="flex items-center gap-2 font-medium">
-            <FileDown className="size-4" />
-            Download PDF
-          </span>
-          <span className="pl-6 text-[11px] text-muted-foreground">
-            Best quality - matches the preview exactly. Choose &ldquo;Save as
-            PDF&rdquo; in the dialog.
-          </span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="flex-col items-start gap-0.5"
           disabled={exporting}
           onSelect={(event) => {
             // Keep the menu logic from firing twice; handle the export inline.
             event.preventDefault();
-            handleDownloadImage();
+            handleDownloadPdf();
           }}
         >
           <span className="flex items-center gap-2 font-medium">
-            <FileImage className="size-4" />
-            {exporting ? "Preparing image…" : "Download as image (PDF)"}
+            <FileDown className="size-4" />
+            {exporting ? "Preparing PDF…" : "Download PDF"}
           </span>
           <span className="pl-6 text-[11px] text-muted-foreground">
-            Instant download, no dialog. Lower fidelity (rasterized).
+            Page margins and a page-number footer. No header/footer text.
+          </span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="flex-col items-start gap-0.5"
+          onSelect={() => print()}
+        >
+          <span className="flex items-center gap-2 font-medium">
+            <Printer className="size-4" />
+            Print / Save as PDF
+          </span>
+          <span className="pl-6 text-[11px] text-muted-foreground">
+            Sharpest, selectable text. Footer is set in the print dialog.
           </span>
         </DropdownMenuItem>
         {onDownloadJson ? (

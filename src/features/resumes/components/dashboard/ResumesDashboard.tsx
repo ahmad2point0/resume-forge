@@ -25,14 +25,14 @@ export function ResumesDashboard() {
     autoCreated.current = true;
     void (async () => {
       const resume = await create();
-      router.replace(`/builder/${resume.id}`);
+      router.replace(`/builder?id=${resume.id}`);
     })();
   }, [searchParams, create, router]);
 
   async function handleCreate() {
     setCreating(true);
     const resume = await create();
-    router.push(`/builder/${resume.id}`);
+    router.push(`/builder?id=${resume.id}`);
   }
 
   async function handleDuplicate(id: string) {

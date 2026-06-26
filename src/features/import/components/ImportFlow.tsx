@@ -250,7 +250,7 @@ export function ImportFlow() {
             };
             const saved = await resumeRepository.save(next);
             toast.success("Resume imported");
-            router.push(`/builder/${saved.id}`);
+            router.push(`/builder?id=${saved.id}`);
           }}
         />
       )}

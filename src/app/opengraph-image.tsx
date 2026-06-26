@@ -6,6 +6,9 @@ export const alt = `${siteConfig.name} - ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Prerender to a static image (required by `output: export`).
+export const dynamic = "force-static";
+
 /** Branded social card used for Open Graph and Twitter previews. */
 export default function OgImage() {
   return new ImageResponse(

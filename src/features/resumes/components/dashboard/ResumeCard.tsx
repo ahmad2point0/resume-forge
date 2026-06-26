@@ -73,7 +73,7 @@ export function ResumeCard({
     <>
       <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
         <Link
-          href={`/builder/${summary.id}`}
+          href={`/builder?id=${summary.id}`}
           className="relative flex h-44 justify-center overflow-hidden border-b border-border bg-surface-2 pt-4"
           aria-label={`Open ${summary.title}`}
         >
@@ -90,7 +90,7 @@ export function ResumeCard({
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <Link
-                href={`/builder/${summary.id}`}
+                href={`/builder?id=${summary.id}`}
                 className="block truncate text-sm font-semibold hover:text-primary"
               >
                 {summary.title}
