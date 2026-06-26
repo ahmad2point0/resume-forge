@@ -8,13 +8,13 @@ export const siteConfig = {
   description:
     "Create, customize, import and export professional, ATS-friendly resumes with complete control of your data. Everything runs in your browser, so your resume never leaves your device.",
   url: "https://resumeforge.local",
-  repo: "https://github.com/ahmad2point0/resumeforge",
+  repo: "https://github.com/ahmad2point0/resume-forge",
   license: "MIT",
   badges: {
     stars: "2.4k",
   },
   social: {
-    github: "https://github.com/ahmad2point0/resumeforge",
+    github: "https://github.com/ahmad2point0/resume-forge",
   },
   /**
    * Donations keep this open-source project free and maintained. These are the

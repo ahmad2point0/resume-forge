@@ -35,10 +35,6 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          # Create the Pages site on first run instead of requiring it to be
-          # enabled beforehand in Settings -> Pages. Needs pages: write (set above).
-          enablement: true
 
       - name: Derive base path
         # Project pages serve from /<repo>; user/org pages (<name>.github.io)
