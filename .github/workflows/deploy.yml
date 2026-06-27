@@ -35,10 +35,11 @@ jobs:
 
       - name: Derive base path
         # Project pages serve from /<repo>; user/org pages (<name>.github.io)
-        # and custom domains serve from the root.
+        # and custom domains (signalled by a public/CNAME file) serve from the
+        # root, so they need an empty base path.
         run: |
           REPO="${GITHUB_REPOSITORY#*/}"
-          if [[ "$REPO" == *.github.io ]]; then
+          if [[ -f public/CNAME || "$REPO" == *.github.io ]]; then
             echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
           else
             echo "NEXT_PUBLIC_BASE_PATH=/$REPO" >> "$GITHUB_ENV"

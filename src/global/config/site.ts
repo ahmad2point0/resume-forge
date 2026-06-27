@@ -7,7 +7,7 @@ export const siteConfig = {
   tagline: "Build ATS-friendly resumes in minutes",
   description:
     "Create, customize, import and export professional, ATS-friendly resumes with complete control of your data. Everything runs in your browser, so your resume never leaves your device.",
-  url: "https://resumeforge.local",
+  url: "https://resumeforge.ahmad2point0.com",
   repo: "https://github.com/ahmad2point0/resume-forge",
   license: "MIT",
   badges: {
