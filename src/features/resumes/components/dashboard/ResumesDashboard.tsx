@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FileText, Plus, Upload } from "lucide-react";
@@ -10,29 +10,29 @@ import { EmptyState } from "@/global/components/shared";
 
 import { useResumeList } from "../../hooks/useResumeList";
 import { ResumeCard } from "./ResumeCard";
+import { TemplatePickerDialog } from "./TemplatePickerDialog";
 
 export function ResumesDashboard() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { resumes, loading, create, duplicate, remove, rename } =
-    useResumeList();
-  const [creating, setCreating] = useState(false);
-  const autoCreated = useRef(false);
+  const { resumes, loading, duplicate, remove, rename } = useResumeList();
 
-  // Support /resumes?new=1 - create a blank resume and jump into the builder.
+  // `/resumes?new=1` (used by the nav, footer, and landing CTAs) opens the
+  // picker; an optional `template` param pre-highlights one card.
+  const newParam = searchParams.get("new") === "1";
+  const templateParam = searchParams.get("template") ?? undefined;
+  const [pickerOpen, setPickerOpen] = useState(false);
+
   useEffect(() => {
-    if (searchParams.get("new") !== "1" || autoCreated.current) return;
-    autoCreated.current = true;
-    void (async () => {
-      const resume = await create();
-      router.replace(`/builder?id=${resume.id}`);
-    })();
-  }, [searchParams, create, router]);
+    if (newParam) setPickerOpen(true);
+  }, [newParam]);
 
-  async function handleCreate() {
-    setCreating(true);
-    const resume = await create();
-    router.push(`/builder?id=${resume.id}`);
+  function handlePickerOpenChange(open: boolean) {
+    setPickerOpen(open);
+    // On close, drop the deep-link params so a refresh doesn't reopen it.
+    if (!open && (newParam || templateParam !== undefined)) {
+      router.replace("/resumes");
+    }
   }
 
   async function handleDuplicate(id: string) {
@@ -62,7 +62,7 @@ export function ResumesDashboard() {
               <Upload className="size-4" /> Import
             </Link>
           </Button>
-          <Button onClick={handleCreate} loading={creating}>
+          <Button onClick={() => setPickerOpen(true)}>
             <Plus className="size-4" /> Create resume
           </Button>
         </div>
@@ -82,7 +82,7 @@ export function ResumesDashboard() {
             description="Create your first resume from scratch, or import an existing one as JSON. It only takes a few seconds."
             action={
               <div className="flex gap-2">
-                <Button onClick={handleCreate} loading={creating}>
+                <Button onClick={() => setPickerOpen(true)}>
                   <Plus className="size-4" /> Create resume
                 </Button>
                 <Button variant="outline" asChild>
@@ -105,6 +105,12 @@ export function ResumesDashboard() {
           </div>
         )}
       </div>
+
+      <TemplatePickerDialog
+        open={pickerOpen}
+        onOpenChange={handlePickerOpenChange}
+        highlightId={templateParam}
+      />
     </div>
   );
 }
